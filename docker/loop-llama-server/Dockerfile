@@ -28,6 +28,9 @@ RUN git clone --depth 1 https://github.com/brianchmielNV/llama.cpp /src \
     && git checkout --detach ${LLAMA_HEAD} \
     && echo "pinned" > /HEAD && git rev-parse HEAD
 
+# link the CUDA driver API against the toolkit stubs (no real driver inside the build container)
+ENV LIBRARY_PATH="/usr/local/cuda/lib64/stubs:${LIBRARY_PATH}"
+
 RUN cmake -B build \
       -DCMAKE_BUILD_TYPE=Release \
       -DGGML_CUDA=ON \
