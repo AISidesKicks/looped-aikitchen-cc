@@ -1,0 +1,25 @@
+services:
+  llama:
+    image: loop-llama-cpp:pr30306
+    container_name: loop-llama-server
+    ports:
+      - "127.0.0.1:8777:8080"
+    volumes:
+      - ../../models:/models:ro
+    environment:
+      - LLAMA_ARG_MODEL=/models/gguf/dory1-4b/NVIDIA-Nemotron-Labs-Dory1.0-4B-Q5_K_M.gguf
+      - LLAMA_ARG_HOST=0.0.0.0
+      - LLAMA_ARG_PORT=8080
+      # small smoke context first; raise together with --gpu-layers after the arch loads
+      - LLAMA_ARG_CTX_SIZE=4096
+    command: >
+      --host 0.0.0.0 --port 8080
+      --ctx-size 4096
+      -ngl 99
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
