@@ -65,7 +65,7 @@ def test_server_health() -> None:
 def test_chat_completion_roundtrip() -> None:
     payload = {
         "messages": [{"role": "user", "content": "What is 17 * 12? Answer with the number only."}],
-        "max_tokens": 32,
+        "max_tokens": 256,
         "temperature": 0.0,
     }
     status, body = http_json("/v1/chat/completions", payload)
