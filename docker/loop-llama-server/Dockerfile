@@ -6,9 +6,9 @@
 # and a release tag ships it, drop this Dockerfile and point compose back
 # at the official image.
 
-ARG CUDA_TAG="13.1.2-ubuntu24.04"
+ARG CUDA_TAG="13.1.2-devel-ubuntu24.04"
 
-FROM nvidia/cuda:${CUDA_TAG}-devel AS build
+FROM nvidia/cuda:${CUDA_TAG} AS build
 
 # pinned: ggml-org/llama.cpp PR 30306 head, fork brianchmielNV/llama.cpp
 # update the sha together with the note above when moving to a new head
@@ -39,7 +39,7 @@ RUN cmake -B build \
     && cmake --build build --target llama-server -j"$(nproc)" \
     && rm -rf build/.cmake* /tmp/*
 
-FROM nvidia/cuda:${CUDA_TAG}-devel
+FROM nvidia/cuda:${CUDA_TAG}
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
       libgomp1 libcurl4t64 \
