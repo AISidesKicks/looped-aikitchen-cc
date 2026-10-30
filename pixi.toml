@@ -1,0 +1,21 @@
+[workspace]
+authors = ["AISidesKicks <198066858+AISidesKicks@users.noreply.github.com>"]
+channels = ["conda-forge"]
+name = "loop"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[activation.env]
+TMPDIR = "/run/user/$UID/pixi_tmp/$PIXI_PROJECT_NAME"
+SCRATCH = "$PIXI_PROJECT_ROOT/scratch"
+
+[dependencies]
+python = "3.12.*"
+nodejs = "24.*"
+huggingface_hub = ">=1"
+pyarrow = ">=20"
+nvidia-ml-py = ">=13.615.71,<14"
+opentelemetry-sdk = ">=1.45.1,<2"
+opentelemetry-exporter-otlp-proto-http = ">=1.45.1,<2"
