@@ -34,7 +34,6 @@ RUN cmake -B build \
       -DCMAKE_CUDA_ARCHITECTURES=${GGML_CUDA_ARCH} \
       -DLLAMA_CURL=ON \
       -DLLAMA_BUILD_TESTS=OFF \
-      -DLLAMA_BUILD_TOOLS=OFF \
       -DGGML_OPENMP=OFF \
     && cmake --build build --target llama-server -j"$(nproc)" \
     && rm -rf build/.cmake* /tmp/*
