@@ -54,15 +54,16 @@ Both are well maintained and cover the 2026 wave (Hyperloop, Loopie, MELT, Flash
 
 ## First results from our own loop eval (2026-10-30)
 
-The dataset from `datasets/loop_evals/generate.py` (18 tasks, seed 7: 6 arithmetic4, 6 graph_reach, 6 stack_program, all answers normalized to a number) scored against the three loop GGUF variants with `tests/test_loop_evals.py` at temperature 0:
+Dataset from `datasets/loop_evals/generate.py` (seed 7): 36 tasks, 12 per type (arithmetic4, graph_reach, stack_program), answers normalized to numbers. Scored with `tests/test_loop_evals.py` across all four loop-count GGUF variants at temperature 0:
 
-| task type | 1 loop | 2 loops | 4 loops |
-|-----------|--------|---------|---------|
-| arithmetic4 | 6/6 | 6/6 | 6/6 |
-| graph_reach | 5/6 | 5/6 | 6/6 |
-| stack_program | 1/6 | 3/6 | 3/6 |
+| task type | 1 loop | 2 loops | 3 loops | 4 loops |
+|-----------|--------|---------|---------|---------|
+| arithmetic4 | 10/12 | 11/12 | 11/12 | 11/12 |
+| graph_reach | 8/12 | 11/12 | 9/12 | 10/12 |
+| stack_program | 2/12 | 6/12 | 7/12 | 5/12 |
+| **all** | **20/36** | **28/36** | **27/36** | **26/36** |
 
-Read-through: exactly the expected loop signature from the old research. Tasks solvable in one pass (deterministic arithmetic) never change. Algorithmic tasks with iterated structure (reverse polish stack programs, LoopedLAN punchcard kin) collapse at a single loop and gain a lot by deepening. Graph reachability needs just a bit of extra depth. Meanwhile throughput pays for deeper loops (110 tok/s at 1 loop down to 46 tok/s at 4 on this GPU). Raw artifacts: `scratch/loop_eval_results.json`.
+Read-through: the loop-2 shoulder is unmistakable (20 to 28 correct answers in one doubling), and it echoes what the Dory card itself reports - most of the gain is at two loops, and beyond that improvements are uneven rather than monotonic (per-type numbers flirt with a peak, sample noise of 12 tasks per type keeps us honest). Algorithmic stack programs stay the loop-sensitive category: 2/12 at one loop versus 5-7/12 with depth. Throughput cost is steady and inverse to depth: 108.8 tok/s at 1 loop, 69.1 at 2, 52.7 at 3, 42.6 at 4. Raw artifacts: `scratch/loop_eval_results.json`.
 
 ## Our simulated loop evals (the plan)
 
