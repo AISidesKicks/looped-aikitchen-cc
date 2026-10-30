@@ -18,6 +18,8 @@ All local GGUF weights live under this directory. It is gitignored on purpose: w
 | quantization | Q5_K_M |
 | license | NVIDIA Open Model License (card in GGUF repo: openmdw-1.1 style disposition) |
 | serve keys | loop count knob at runtime (1/2/4 tested by NVIDIA, 2 recommended); last-loop KV caching keeps memory flat in loops |
+| loop variants | `NVIDIA-Nemotron-Labs-Dory1.0-4B-{1,2,4}loop.gguf` clones with only `dory.num_loops` patched (1/2, source keeps 4); made by `tests/make_dory_loop_variants.py` |
+| loop probe | `tests/test_dory_loop_probe.py` on 3 arithmetic questions, temp 0: 1 loop ~99 tok/s, 2 loops ~68 tok/s, 4 loops ~43 tok/s; all answers correct, token counts flat on this easy task set. artifacts in `scratch/loop_probe_results.json` |
 | smoke verified | 2026-10-30 via loop-llama-server (image loop-llama-cpp:pr30306, llama.cpp 0.8.0-dev + PR 30306 head 1c3cdd2), 3/3 checks in tests/test_dory_smoke.py, ~44 tok/s on RTX 4070, 7.4/12 GiB VRAM |
 
 Extra files in `dory1-4b/`: `explainability.md` (official card answers), `dory_arch.png` (official architecture diagram).
