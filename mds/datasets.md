@@ -54,7 +54,7 @@ Both are well maintained and cover the 2026 wave (Hyperloop, Loopie, MELT, Flash
 
 ## First results from our own loop eval (2026-10-30)
 
-Dataset from `datasets/loop_evals/generate.py` (seed 7): 36 tasks, 12 per type (arithmetic4, graph_reach, stack_program), answers normalized to numbers. Scored with `tests/test_loop_evals.py` across all four loop-count GGUF variants at temperature 0:
+Full write up with both dataset draws and the combined table: `mds/lab-report.md`. Dataset from `datasets/loop_evals/generate.py` (seed 7): 36 tasks, 12 per type (arithmetic4, graph_reach, stack_program), answers normalized to numbers. Scored with `tests/test_loop_evals.py` across all four loop-count GGUF variants at temperature 0:
 
 | task type | 1 loop | 2 loops | 3 loops | 4 loops |
 |-----------|--------|---------|---------|---------|

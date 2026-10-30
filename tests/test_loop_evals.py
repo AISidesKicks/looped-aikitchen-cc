@@ -123,9 +123,10 @@ def main() -> int:
     ap.add_argument("--ctx", type=int, default=2048)
     ap.add_argument("--max-tokens", type=int, default=512)
     ap.add_argument("--limit", type=int, default=0, help="only first N tasks (0 = all)")
+    ap.add_argument("--data", default=str(DATA), help="jsonl dataset path")
     args = ap.parse_args()
 
-    tasks = [json.loads(line) for line in DATA.read_text().splitlines() if line.strip()]
+    tasks = [json.loads(line) for line in Path(args.data).read_text().splitlines() if line.strip()]
     if args.limit:
         tasks = tasks[: args.limit]
     print(f"[eval] {len(tasks)} tasks x cycle counts {args.cycles}")
