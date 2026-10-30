@@ -51,5 +51,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get autoremove -y
 
 COPY --from=build /src/build/bin/llama-server /usr/local/bin/llama-server
+COPY --from=build /src/build/bin/*.so* /usr/local/bin/
+ENV LD_LIBRARY_PATH="/usr/local/bin:${LD_LIBRARY_PATH}"
 
 ENTRYPOINT ["/usr/local/bin/llama-server"]
