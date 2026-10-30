@@ -52,6 +52,18 @@ Modeling ships with the HF repos: `modeling_ouro.py` + `configuration_ouro.py` o
 
 Both are well maintained and cover the 2026 wave (Hyperloop, Loopie, MELT, FlashLoop, LPT, LoopFormer).
 
+## First results from our own loop eval (2026-10-30)
+
+The dataset from `datasets/loop_evals/generate.py` (18 tasks, seed 7: 6 arithmetic4, 6 graph_reach, 6 stack_program, all answers normalized to a number) scored against the three loop GGUF variants with `tests/test_loop_evals.py` at temperature 0:
+
+| task type | 1 loop | 2 loops | 4 loops |
+|-----------|--------|---------|---------|
+| arithmetic4 | 6/6 | 6/6 | 6/6 |
+| graph_reach | 5/6 | 5/6 | 6/6 |
+| stack_program | 1/6 | 3/6 | 3/6 |
+
+Read-through: exactly the expected loop signature from the old research. Tasks solvable in one pass (deterministic arithmetic) never change. Algorithmic tasks with iterated structure (reverse polish stack programs, LoopedLAN punchcard kin) collapse at a single loop and gain a lot by deepening. Graph reachability needs just a bit of extra depth. Meanwhile throughput pays for deeper loops (110 tok/s at 1 loop down to 46 tok/s at 4 on this GPU). Raw artifacts: `scratch/loop_eval_results.json`.
+
 ## Our simulated loop evals (the plan)
 
 NVIDIA's loop numbers (SWE-bench Verified, Terminal-Bench, GPQA, IFBench...) are internal-harness results on agents and data we cannot run. We simulate cheaply and honestly:
