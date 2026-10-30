@@ -38,6 +38,7 @@ RUN cmake -B build \
       -DLLAMA_CURL=ON \
       -DLLAMA_BUILD_TESTS=OFF \
       -DGGML_OPENMP=OFF \
+      -DGGML_CUDA_NO_VMM=ON \
     && cmake --build build --target llama-server -j"$(nproc)" \
     && rm -rf build/.cmake* /tmp/*
 
