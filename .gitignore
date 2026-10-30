@@ -1,0 +1,31 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# pixi
+.pixi/
+
+# node
+node_modules/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+
+# build output (gui/ is built, never docs/)
+gui/*
+!gui/.gitkeep
+
+# scratch artifacts (keep the dir)
+scratch/*
+!scratch/.gitkeep
+
+# local gguf weights (keep the placeholder)
+models/gguf/*
+!models/gguf/.gitkeep
+
+# misc
+*.log
+.DS_Store
