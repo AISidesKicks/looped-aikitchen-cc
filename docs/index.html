@@ -34,6 +34,7 @@
   .duo { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:28px; align-items:start; margin:28px 0 8px; }
   .duo .hero { margin:0; }
   .duo .side { margin:0; }
+  .duo .side .lede { margin-top:0; }
   @media (max-width: 720px) {
     .duo { grid-template-columns:1fr; }
   }
@@ -67,8 +68,10 @@
 
 <div class="duo">
   <img class="hero" src="looped-croped.jpeg" alt="Looped transformer, kitchen art">
-  <p class="lede side">A looped transformer is a new paradigm for how a model thinks. A classic transformer pours every token through its stack once, deep and expensive. A looped transformer keeps a small stack and walks it in a circle: the same block runs two, three, four times, each pass refining what the last pass left in the latent state - thinking longer without paying for more weights. The loop count becomes a runtime dial: turn it up and the model gets smarter answers at fewer tokens per second, turn it down and you get speed. One checkpoint, many effective depths, and you pay for depth on your own GPU, at inference time, per question.</p>
-  <p class="side note">Second looks are a hot topic right now, and this lab is only half of it. The same trick, run against retrieval instead of weights, is more explored on our sibling lab <a href="https://refeed.raptor.today/">refeed.raptor.today</a> - the cost of looking twice, with visible traces and published metrics.</p>
+  <div class="side">
+    <p class="lede">A looped transformer is a new paradigm for how a model thinks. A classic transformer pours every token through its stack once, deep and expensive. A looped transformer keeps a small stack and walks it in a circle: the same block runs two, three, four times, each pass refining what the last pass left in the latent state - thinking longer without paying for more weights. The loop count becomes a runtime dial: turn it up and the model gets smarter answers at fewer tokens per second, turn it down and you get speed. One checkpoint, many effective depths, and you pay for depth on your own GPU, at inference time, per question.</p>
+    <p class="note">Second looks are a hot topic right now, and this lab is only half of it. The same trick, run against retrieval instead of weights, is more explored on our sibling lab <a href="https://refeed.raptor.today/">refeed.raptor.today</a> - the cost of looking twice, with visible traces and published metrics.</p>
+  </div>
 </div>
 
 <main>
