@@ -17,6 +17,26 @@ Running smart AI is expensive, so before renting millennia of GPU time we want t
 - `docs/` - static GitHub Pages overview site (hand written HTML only)
 - `INTENT.md` - project intent and up to date links
 
+## What the lab learned so far
+
+The one sentence version: going from 1 to 2 loops buys the most accuracy while deeper loops mostly just cost speed. Stack programs are the loop sensitive kind; easy arithmetic almost never needs a loop. Combined over two independent 36 task draws, temperature 0, Dory1.0-4B Q5_K_M on an RTX 4070:
+
+| task type | 1 loop | 2 loops | 3 loops | 4 loops |
+|-----------|--------|---------|---------|---------|
+| arithmetic4 | 20/24 | 21/24 | 22/24 | 23/24 |
+| graph_reach | 18/24 | 22/24 | 19/24 | 20/24 |
+| stack_program | 5/24 | 11/24 | 11/24 | 11/24 |
+| **all** | **43/72** | **54/72** | **52/72** | **54/72** |
+
+| variant | tok/s |
+|---------|-------|
+| 1 loop | 108.8 - 110.2 |
+| 2 loops | 69.1 - 76.1 |
+| 3 loops | 52.7 - 57.8 |
+| 4 loops | 42.6 - 47.0 |
+
+Full method, per draw tables and caveats: [mds/lab-report.md](mds/lab-report.md).
+
 ## Quick start
 
 ```sh
