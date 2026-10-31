@@ -38,6 +38,9 @@
     .duo { grid-template-columns:1fr; }
   }
   .hero { display:block; width:100%; height:auto; margin:28px 0 8px; border:1px solid var(--line); border-radius:14px; }
+  .note { font-size:.92rem; color:var(--muted); margin-top:14px; }
+  .note a { color:var(--rust); text-decoration:none; border-bottom:1px dotted var(--line); }
+  .note a:hover { border-bottom-color:var(--rust); }
   section { padding:32px 0; border-top:1px solid var(--line); }
   h2 { margin:0 0 12px; font-size:1.5rem; letter-spacing:-.02em; }
   p { margin:0 0 14px; }
@@ -65,6 +68,7 @@
 <div class="duo">
   <img class="hero" src="looped-croped.jpeg" alt="Looped transformer, kitchen art">
   <p class="lede side">A looped transformer is a new paradigm for how a model thinks. A classic transformer pours every token through its stack once, deep and expensive. A looped transformer keeps a small stack and walks it in a circle: the same block runs two, three, four times, each pass refining what the last pass left in the latent state - thinking longer without paying for more weights. The loop count becomes a runtime dial: turn it up and the model gets smarter answers at fewer tokens per second, turn it down and you get speed. One checkpoint, many effective depths, and you pay for depth on your own GPU, at inference time, per question.</p>
+  <p class="side note">Second looks are a hot topic right now, and this lab is only half of it. The same trick, run against retrieval instead of weights, is more explored on our sibling lab <a href="https://refeed.raptor.today/">refeed.raptor.today</a> - the cost of looking twice, with visible traces and published metrics.</p>
 </div>
 
 <main>
