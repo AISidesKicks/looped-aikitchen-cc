@@ -1,7 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>looped aikitchen - understanding looped transformers</title>
+<style>
+  :root { --ink:#1c2024; --muted:#5b6672; --line:#e4e7ea; --accent:#0f6d5a; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--ink); background:#fafbfc; }
+  main { max-width:880px; margin:0 auto; padding:0 20px 60px; }
+  header.hero { padding:32px 0 12px; }
+  header.hero img { width:100%; border-radius:14px; display:block; box-shadow:0 2px 14px rgba(20,40,60,.12); }
+  h1 { font-size:2rem; margin:26px 0 8px; }
+  h2 { font-size:1.25rem; margin:34px 0 10px; color:var(--accent); }
+  p.lead { font-size:1.05rem; color:var(--muted); max-width:640px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+  .card h3 { margin:0 0 6px; font-size:1rem; }
+  .card p { margin:0; font-size:.92rem; color:var(--muted); }
+  .card a { color:var(--accent); text-decoration:none; }
+  table.grid { border-collapse:collapse; width:100%; background:#fff; border:1px solid var(--line); border-radius:10px; overflow:hidden; font-size:.95rem; }
+  table.grid th, table.grid td { padding:8px 12px; border-bottom:1px solid var(--line); text-align:left; }
+  table.grid th { background:#f0f3f5; font-weight:600; }
+  table.grid tr:last-child td { border-bottom:none; }
+  .good { color:#0f6d5a; font-weight:600; }
+  footer { margin-top:42px; color:var(--muted); font-size:.85rem; }
+</style>
+</head>
+<body>
+<main>
+  <img src="looped.jpeg" alt="looped transformer art">
+  <header class="hero">
+    <h1>looped Transformers, cooked in a small kitchen</h1>
+    <p class="lead">NVIDIA released the looped model Dory1.0-4B with no tech report. This lab rebuilds what the older, smaller looped models already know - Huginn, Ouro, Loopie - runs the new kid locally on an RTX 4070, and measures loop counts hands on.</p>
+  </header>
 
+  <h2>What the lab learned so far</h2>
+  <p>The one sentence version: going from 1 to 2 loops buys the most accuracy (+15 points on a 72 task combined eval) while the next loops mostly just cost speed. Algorithm style tasks (stack programs) are the loop sensitive kind, easy arithmetic almost never needs a loop.</p>
 
-https://www.mindstudio.ai/blog/nvidia-dory-1-0-4b-looped-model
+  <table class="grid">
+    <tr><th>task type</th><th>1 loop</th><th>2 loops</th><th>3 loops</th><th>4 loops</th></tr>
+    <tr><td>arithmetic4</td><td>20/24</td><td>21/24</td><td>22/24</td><td>23/24</td></tr>
+    <tr><td>graph_reach</td><td>18/24</td><td class="good">22/24</td><td>19/24</td><td>20/24</td></tr>
+    <tr><td>stack_program</td><td>5/24</td><td class="good">11/24</td><td>11/24</td><td>11/24</td></tr>
+    <tr><td><b>all</b></td><td><b>43/72</b></td><td><b>54/72</b></td><td>52/72</td><td>54/72</td></tr>
+  </table>
+  <p>Two independent data draws, temperature 0, all on one 12 GiB GPU. Full method, caveats and per draw tables live in the report.</p>
 
-https://www.mindstudio.ai/blog/run-nvidia-dory-4b-locally
+  <h2>Read the deep dives</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Looped research notes</h3>
+      <p>The lineage of looped models: Universal Transformers, LoopedLAN, Huginn, Ouro, Hyperloop, Loopie, and the KV cache fix family. <a href="https://github.com/AISidesKicks/looped-aikitchen-cc/blob/main/mds/looped-research.md">Read (mds/looped-research.md)</a></p>
+    </div>
+    <div class="card">
+      <h3>Datasets and code inventory</h3>
+      <p>Public code, tests and datasets from every looped paper, plus our own synthetic loop eval design and results. <a href="https://github.com/AISidesKicks/looped-aikitchen-cc/blob/main/mds/datasets.md">Read (mds/datasets.md)</a></p>
+    </div>
+    <div class="card">
+      <h3>The lab report</h3>
+      <p>The full hands on story: from an image the official llama.cpp refused to load, to a custom Docker build, loop count surgery on GGUF metadata, and replicated curves. <a href="https://github.com/AISidesKicks/looped-aikitchen-cc/blob/main/mds/lab-report.md">Read (mds/lab-report.md)</a></p>
+    </div>
+  </div>
 
-https://www.youtube.com/watch?v=D3YM5OzNt9s
+  <footer>
+    Project: <a href="https://github.com/AISidesKicks/looped-aikitchen-cc">looped-aikitchen-cc on GitHub</a> - static page, nothing here runs in your browser. Last verified: 2026-10-30.
+  </footer>
+</main>
+</body>
+</html>
