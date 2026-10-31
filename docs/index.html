@@ -53,6 +53,7 @@
   <p class="eyebrow">looped aikitchen - a looped transformer lab</p>
   <h1><span class="domain">looped.aikitchen.cc</span> <a class="gh" href="https://github.com/AISidesKicks/looped-aikitchen-cc">github</a></h1>
   <p class="lede">NVIDIA released its looped model Dory1.0-4B with no tech report. This lab rebuilds the research the market already knows from smaller looped models, runs the new kid locally in Docker, and measures loop counts on real GPU.</p>
+  <p class="lede">A looped transformer is a new paradigm for how a model thinks. A classic transformer pours every token through its stack once, deep and expensive. A looped transformer keeps a small stack and walks it in a circle: the same block runs two, three, four times, each pass refining what the last pass left in the latent state - thinking longer without paying for more weights. The loop count becomes a runtime dial: turn it up and the model gets smarter answers at fewer tokens per second, turn it down and you get speed. One checkpoint, many effective depths, and you pay for depth on your own GPU, at inference time, per question.</p>
   <p class="status">Status: the stack is running. A looped llama.cpp build of PR 30306, a 3.42 GiB GGUF on an RTX 4070, loop-count variants from GGUF metadata surgery, a smoke test, and a replicated 36 task synthetic loop eval.</p>
 </header>
 
