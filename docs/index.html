@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="looped aikitchen - a looped transformer lab">
 <meta property="og:description" content="The loop-2 shoulder, measured on real GPU: most accuracy lands at two loops, deeper loops mostly just slow you down.">
-<meta property="og:image" content="https://looped.aikitchen.cc/looped.jpeg">
+<meta property="og:image" content="https://looped.aikitchen.cc/looped-croped.jpeg">
 <style>
   :root {
     --paper: #f6f1e8;
@@ -31,6 +31,12 @@
   .gh:hover { border-color:var(--rust); }
   .lede { margin:18px 0 0; color:var(--muted); font-size:1.15rem; }
   .status { display:inline-block; margin:18px 0 0; padding:6px 10px; background:var(--panel); border:1px solid var(--line); border-radius:999px; color:var(--muted); font-size:.85rem; }
+  .duo { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:28px; align-items:start; margin:28px 0 8px; }
+  .duo .hero { margin:0; }
+  .duo .side { margin:0; }
+  @media (max-width: 720px) {
+    .duo { grid-template-columns:1fr; }
+  }
   .hero { display:block; width:100%; height:auto; margin:28px 0 8px; border:1px solid var(--line); border-radius:14px; }
   section { padding:32px 0; border-top:1px solid var(--line); }
   h2 { margin:0 0 12px; font-size:1.5rem; letter-spacing:-.02em; }
@@ -53,11 +59,13 @@
   <p class="eyebrow">looped aikitchen - a looped transformer lab</p>
   <h1><span class="domain">looped.aikitchen.cc</span> <a class="gh" href="https://github.com/AISidesKicks/looped-aikitchen-cc">github</a></h1>
   <p class="lede">NVIDIA released its looped model Dory1.0-4B with no tech report. This lab rebuilds the research the market already knows from smaller looped models, runs the new kid locally in Docker, and measures loop counts on real GPU.</p>
-  <p class="lede">A looped transformer is a new paradigm for how a model thinks. A classic transformer pours every token through its stack once, deep and expensive. A looped transformer keeps a small stack and walks it in a circle: the same block runs two, three, four times, each pass refining what the last pass left in the latent state - thinking longer without paying for more weights. The loop count becomes a runtime dial: turn it up and the model gets smarter answers at fewer tokens per second, turn it down and you get speed. One checkpoint, many effective depths, and you pay for depth on your own GPU, at inference time, per question.</p>
   <p class="status">Status: the stack is running. A looped llama.cpp build of PR 30306, a 3.42 GiB GGUF on an RTX 4070, loop-count variants from GGUF metadata surgery, a smoke test, and a replicated 36 task synthetic loop eval.</p>
 </header>
 
-<img class="hero" src="looped.jpeg" alt="Looped transformer, kitchen art">
+<div class="duo">
+  <img class="hero" src="looped-croped.jpeg" alt="Looped transformer, kitchen art">
+  <p class="lede side">A looped transformer is a new paradigm for how a model thinks. A classic transformer pours every token through its stack once, deep and expensive. A looped transformer keeps a small stack and walks it in a circle: the same block runs two, three, four times, each pass refining what the last pass left in the latent state - thinking longer without paying for more weights. The loop count becomes a runtime dial: turn it up and the model gets smarter answers at fewer tokens per second, turn it down and you get speed. One checkpoint, many effective depths, and you pay for depth on your own GPU, at inference time, per question.</p>
+</div>
 
 <main>
 
